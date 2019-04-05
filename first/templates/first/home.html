@@ -1,0 +1,51 @@
+{% extends "first/base.html" %}
+{% load staticfiles %}
+{% block scripts %}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <script src="{% static 'js/drag-drop.js' %}"></script>
+{% endblock scripts %}
+
+{% block content %}
+
+<div class="column-main">
+<div class="column" data-task="TODO">
+  {% for task in todo %}
+  <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
+    <div class="portlet-header" data-id={{task.id}}>{{task.title}} - {{task.id}}</div>
+    <div class="portlet-content">{{task.content}}</div>
+    <span class="edit">edit</span>
+    <span class="save">save</span>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="column" data-task="INPROGRESS">
+
+    {% for task in inprogress %}
+    <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
+      <div class="portlet-header" data-id={{task.id}} >{{task.title}} - {{task.id}}</div>
+      <div class="portlet-content" >{{task.content}}</div>
+      <span class="edit">edit</span>
+      <span class="save">save</span>
+    </div>
+    {% endfor %}
+
+</div>
+
+<div class="column" data-task="DONE">
+
+    {% for task in done %}
+    <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
+      <div class="portlet-header" data-id={{task.id}}>{{task.title}} - {{task.id}}</div>
+      <div class="portlet-content">{{task.content}}</div>
+      <span class="edit">edit</span>
+      <span class="save">save</span>
+    </div>
+    {% endfor %}
+
+</div>
+</div>
+{% endblock content %}

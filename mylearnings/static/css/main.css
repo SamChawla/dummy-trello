@@ -1,0 +1,110 @@
+.tilt {
+  transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -webkit-transform: rotate(3deg);
+}
+
+body {
+  min-width: 520px;
+  background-image: url('../images/background.png');
+}
+
+.column {
+  width: 200px;
+  float: left;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border:1px solid black;
+  border-radius: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.column-main {
+  border:1px solid black;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 15px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+.portlet {
+
+  margin: 1 1em 1em 1;
+  padding: 0.3em;
+}
+.portlet-header {
+  padding: 0.2em 0.3em;
+  margin-bottom: 0.5em;
+  margin-right: 0.4em;
+  position: relative;
+}
+.portlet-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -8px;
+  margin-left: -8px;
+}
+.portlet-content {
+  padding: 0.4em;
+}
+.portlet-placeholder {
+  border: 1px dotted black;
+  margin: 0 1em 1em 0;
+  height: 50px;
+}
+
+.box-title {
+  border: 1px solid black;
+  padding: 2px;
+  display: auto;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.editable {
+  border-color: #bd0f18;
+  box-shadow: inset 0 0 10px #555;
+  background: #f2f2f2;
+}
+
+.edit, .save {
+  width: 35px;
+  display: block;
+  position: relative;
+  float: right;
+  bottom: 0px;
+  right: 0px;
+  padding: 4px 10px;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 10px;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: -1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.edit { 
+  background: #557a11;
+  color: #f0f0f0;
+  opacity: 0; 
+  transition: opacity .2s ease-in-out;
+}
+
+.save {
+  display: none;
+  background: #bd0f18;
+  color: #f0f0f0;
+}
+
+
+.portlet:hover .edit {
+  opacity: 1;
+}
+
+[contenteditable]:focus {
+  outline: 0px solid transparent;
+}

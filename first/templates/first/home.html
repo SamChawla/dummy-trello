@@ -14,10 +14,13 @@
 <div class="column" data-task="TODO">
   {% for task in todo %}
   <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
-    <div class="portlet-header" data-id={{task.id}}>{{task.title}} - {{task.id}}</div>
-    <div class="portlet-content">{{task.content}}</div>
-    <span class="edit">edit</span>
-    <span class="save">save</span>
+    <div class="portlet-header" ondblclick="EditHeader(this)" data-id={{task.id}}>
+      <span class="portlet-header-content"> {{task.title}} </span> 
+      <!-- <span class="portlet-header-id"> Id: {{task.id}} </span> -->
+    </div>
+    <div class="portlet-content" ondblclick="EditContent(this)">{{task.content}}</div>
+    <!-- <span class="edit">edit</span>
+    <span class="save">save</span> -->
   </div>
   {% endfor %}
 </div>
@@ -26,10 +29,13 @@
 
     {% for task in inprogress %}
     <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
-      <div class="portlet-header" data-id={{task.id}} >{{task.title}} - {{task.id}}</div>
-      <div class="portlet-content" >{{task.content}}</div>
-      <span class="edit">edit</span>
-      <span class="save">save</span>
+      <div class="portlet-header" ondblclick="EditHeader(this)" data-id={{task.id}} >
+        <span class="portlet-header-content"> {{task.title}} </span> 
+        <!-- <span class="portlet-header-id"> Id: {{task.id}} </span> -->
+      </div>
+      <div class="portlet-content" ondblclick="EditContent(this)">{{task.content}}</div>
+      <!-- <span class="edit">edit</span>
+      <span class="save">save</span> -->
     </div>
     {% endfor %}
 
@@ -39,10 +45,13 @@
 
     {% for task in done %}
     <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
-      <div class="portlet-header" data-id={{task.id}}>{{task.title}} - {{task.id}}</div>
-      <div class="portlet-content">{{task.content}}</div>
-      <span class="edit">edit</span>
-      <span class="save">save</span>
+      <div class="portlet-header" ondblclick="EditHeader(this)" data-id={{task.id}}>
+        <span class="portlet-header-content"> {{task.title}} </span> 
+        <!-- <span class="portlet-header-id"> Id: {{task.id}} </span> -->
+      </div>
+      <div class="portlet-content" ondblclick="EditContent(this)">{{task.content}}</div>
+      <!-- <span class="edit">edit</span>
+      <span class="save">save</span> -->
     </div>
     {% endfor %}
 

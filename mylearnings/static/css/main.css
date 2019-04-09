@@ -37,6 +37,7 @@ body {
 
   margin: 1;
   padding: 0.3em;
+  margin-bottom: 10px;
 }
 .portlet-header {
   padding: 0.2em 0.3em;
@@ -45,6 +46,14 @@ body {
   position: relative;
   text-align: center;
 }
+
+.column-header {
+  padding: 0.2em;
+  margin-bottom: 0.5em;
+  position: relative;
+  text-align: center;
+}
+
 .portlet-toggle {
   position: absolute;
   top: 50%;

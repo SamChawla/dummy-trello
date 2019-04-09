@@ -20,41 +20,16 @@ $(".portlet-header").keypress(function (e) {
     $(e.currentTarget).removeAttr('contenteditable')
   }
 });
-
-
-// $('.edit').click(function(){
-//   $(this).hide();
-//   $(this).parent().addClass('editable');
-//   $(this).closest('.portlet').find('.portlet-content').attr('contenteditable', 'true');  
-//   $(this).closest('.portlet').find('.save').show();
-//   $(this).parent().find('.portlet-toggle').hide()
-//   // .portlet-toggle
-// });
-
-// $('.save').click(function(){
-//   $(this).hide();
-//   $(this).parent().removeClass('editable');
-//   $(this).closest('.portlet').find('.portlet-content').removeAttr('contenteditable');  
-//   $(this).closest('.portlet').find('.edit').show();
-//   // Extracting Text and task Id
-//   var task_id = $(this).closest('.portlet').data('id')
-//   var temp = $(this).closest('.portlet').find('.portlet-content')[0]
-//   var updated_content = $(temp).text() 
-
-//   onContentChange(task_id,updated_content);
-//   $(this).parent().find('.portlet-toggle').show()
-// });
-
 })
 
 // Call this function to update task status
-function onTaskChange(taskchange,task_id,order){
+function onTaskChange(task_status_id,task_id,order){
 $.ajax({
   type:"GET",
   cache:false,
   url:'/update',
   dataType: "json",
-  data:{task:taskchange, taskid:task_id,taskorder:order},    // multiple data sent using ajax
+  data:{taskstatusid:task_status_id, taskid:task_id,taskorder:order},    // multiple data sent using ajax
   success: function (result) {
     console.log(result['task'])
   }
@@ -103,13 +78,13 @@ function onPageLoad()
       ui.item.removeClass('tilt');
       var task_item = ui.item
       var task_id = $(task_item[0]).data("id")
-      var task = $(task_item.parent()[0]).data("task")
+      var task_status_id = $(task_item.parent()[0]).data("task-id")
       var order = ($(task_item.parent()).sortable("toArray"))
       var json_order = JSON.stringify(order)
       console.log(task_id)
-      console.log(task) 
+      console.log(task_status_id) 
       console.log(json_order)
-      onTaskChange(task,task_id,json_order);
+      onTaskChange(task_status_id,task_id,json_order);
 
     }
   });
@@ -119,17 +94,4 @@ function onPageLoad()
     .find( ".portlet-header" )
       .addClass( "ui-widget-header ui-corner-all" );
       // .prepend( "<span ondblclick='EditContent(this)' class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
-
-  // $( ".portlet-toggle" ).click(function() {
-  //                                         });
-  //   var icon = $( this );
-  //   // icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
-  //   icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
-  //   if ($(icon).hasClass('ui-icon-plusthick')){
-  //       $(icon).closest(".portlet").find(".edit").hide()
-  //   }
-  //   else{
-  //     $(icon).closest(".portlet").find(".edit").show()
-  //   }
-  // });
 }

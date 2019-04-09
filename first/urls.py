@@ -1,9 +1,10 @@
 from django.urls import path
-from first.views import HomeView
+from first.views import HomeView,TaskView
 from first.utilities import updatetask,updatecontent
 
 urlpatterns = [
     path('', HomeView.as_view(),name='first-home'),
     path('update', updatetask ,name='update-task'),
     path('updatecontent', updatecontent ,name='update-content'),
+    path('new',TaskView.as_view(),name="new-task"),
 ]

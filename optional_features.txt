@@ -1,0 +1,45 @@
+
+
+home.html:
+
+Inside 'portlet-content': 
+<span class="edit">edit</span>
+<span class="save">save</span>
+
+JS:
+
+ $('.edit').click(function(){
+   $(this).hide();
+   $(this).parent().addClass('editable');
+   $(this).closest('.portlet').find('.portlet-content').attr('contenteditable', 'true');  
+   $(this).closest('.portlet').find('.save').show();
+   $(this).parent().find('.portlet-toggle').hide()
+   // .portlet-toggle
+ });
+
+ $('.save').click(function(){
+   $(this).hide();
+   $(this).parent().removeClass('editable');
+   $(this).closest('.portlet').find('.portlet-content').removeAttr('contenteditable');  
+   $(this).closest('.portlet').find('.edit').show();
+   //  Extracting Text and task Id
+   var task_id = $(this).closest('.portlet').data('id')
+   var temp = $(this).closest('.portlet').find('.portlet-content')[0]
+   var updated_content = $(temp).text() 
+
+   onContentChange(task_id,updated_content);
+   $(this).parent().find('.portlet-toggle').show()
+ });
+
+   $( ".portlet-toggle" ).click(function() {
+                                          });
+    var icon = $( this );
+    // icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
+    icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+    if ($(icon).hasClass('ui-icon-plusthick')){
+        $(icon).closest(".portlet").find(".edit").hide()
+    }
+    else{
+      $(icon).closest(".portlet").find(".edit").show()
+    }
+  });

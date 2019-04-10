@@ -20,21 +20,28 @@ $(".portlet-header").keypress(function (e) {
     $(e.currentTarget).removeAttr('contenteditable')
   }
 });
+
+$(".close").on("click",function(event){
+
+  $(this).closest(".modal").hide()
 })
 
-// Call this function to update task status
-function onTaskChange(task_status_id,task_id,order){
-$.ajax({
-  type:"GET",
-  cache:false,
-  url:'/update',
-  dataType: "json",
-  data:{taskstatusid:task_status_id, taskid:task_id,taskorder:order},    // multiple data sent using ajax
-  success: function (result) {
-    console.log(result['task'])
-  }
-  });
-}
+$("#task-form").on("submit",function(e){
+  debugger
+  $.ajax({
+    type:"GET",
+    cache:false,
+    url:'/new-task',
+    dataType: "json",
+    data:{},    // multiple data sent using ajax
+    success: function (result) {
+      console.log(result['task'])
+    }
+    });
+
+})
+
+})
 
 // To enable content editing
 function EditContent(ref_element){
@@ -47,6 +54,20 @@ function EditHeader(ref_element){
   console.log(ref_element);
   // debugger
   $(ref_element).attr('contenteditable','true')
+  }
+
+// Call this function to update task status
+function onTaskChange(task_status_id,task_id,order){
+  $.ajax({
+    type:"GET",
+    cache:false,
+    url:'/update',
+    dataType: "json",
+    data:{taskstatusid:task_status_id, taskid:task_id,taskorder:order},    // multiple data sent using ajax
+    success: function (result) {
+      console.log(result['task'])
+    }
+    });
   }
 
 // Call this function to change content or title of task
@@ -62,6 +83,11 @@ function onContentChange(task_id,updated_content,title){
     }
     });
   }
+
+  function newTask(ref_element){
+    $(ref_element).parent().parent().find(".modal").show()
+  }
+  
 
 
 // Called on Page Load

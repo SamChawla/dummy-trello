@@ -41,4 +41,5 @@ def updatecontent(request):
             return HttpResponse(json.dumps({'task': f"Task {task_id} Updated"}), content_type="application/json")
         return HttpResponse(json.dumps({'task': f"Task {task_id}  Failed"}), content_type="application/json")
         
-    
+def newTask(request):
+    return HttpResponse(json.dumps({'task': f"Task {task_id} Updated"}), content_type="application/json")

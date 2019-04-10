@@ -1,0 +1,28 @@
+<div id="mymodal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Add New Task</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                
+                <form class="taskForm" id="task-form" method="post">
+                        {% csrf_token %}
+                    <div class="modal-body">
+                        <label for="taskTitle">Title: </label>
+                        <input id="taskTitle" name="title" class="form-control" type="text"/>
+
+                        <label for="taskContent">Content: </label>
+                        <textarea rows = "5" cols = "50" name ="content" id="taskContent" class="form-control"></textarea>
+                        <input type="hidden" id="user" class="form-control" value="{{request.user.id}}"/>
+                        <input type="hidden" id="status" class="form-control" value="{{status.id}}"/>
+        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input id="task-form-submit" type="submit" class="btn btn-primary" value="Add Task">
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

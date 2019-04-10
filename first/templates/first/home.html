@@ -13,7 +13,10 @@
 <div class="column-main">
   {% for status,tasks in data.items %}
     <div class="column" data-task-id={{status.id}}>
-      <div class="ui-widget-header ui-corner-all column-header">{{ status.title|upper }}</div>
+      <div class="ui-widget-header ui-corner-all column-header">{{ status.title|upper }}
+        <span class='ui-icon ui-icon-plusthick task-new' onclick="newTask(this)"></span>
+      </div>
+      {% include 'first/new_task_form.html'%}
         {% for task in tasks %}
         <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
           <div class="portlet-header" ondblclick="EditHeader(this)" data-id={{task.id}}>

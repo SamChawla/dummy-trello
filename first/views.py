@@ -1,8 +1,11 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from django.views.generic import TemplateView
-from first.models import Task,TaskOptions
 from django.views.generic.edit import FormView
 from .forms import TaskForm
+from .mixins import AjaxFormMixin
+from first.models import Task,TaskOptions
+
 
 # Create your views here.
 
@@ -19,15 +22,7 @@ class HomeView(TemplateView):
 		print(data)
 		return context
 
-class TaskView(FormView):
-    template_name = 'first/task.html'
-    form_class = TaskForm
-    success_url = '/'
-
-    def form_valid(self, form):
-		# This method is called when valid form data has been POSTed.
-		# It should return an HttpResponse.
-        form.save()
-        return super().form_valid(form)
-
-
+# class TaskView(AjaxFormMixin,FormView):
+#     template_name = 'first/task.html'
+#     form_class = TaskForm
+#     success_url = '/'

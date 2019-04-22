@@ -1,12 +1,12 @@
-<div id="mymodal" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="0" class="modal bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Add New Task</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <button type="button" class="close close-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 
-                <form class="taskForm" id="task-form" method="post">
+                <form class="taskForm" id="task-form" method="post" action="/newtask">
                         {% csrf_token %}
                     <div class="modal-body">
                         <label for="taskTitle">Title: </label>
@@ -19,7 +19,7 @@
         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>
                         <input id="task-form-submit" type="submit" class="btn btn-primary" value="Add Task">
                     </div>
                 </form>

@@ -1,0 +1,16 @@
+{% for status,tasks in data.items %}
+    <div class="column" data-task-id={{status.id}}>
+        <div class="ui-widget-header ui-corner-all column-header">{{ status.title|upper }}
+            <span class='ui-icon ui-icon-plusthick task-new' onclick="newTask(this)"></span>
+        </div>
+        {% include 'first/new_task_form.html'%}
+        {% for task in tasks %}
+        <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
+            <div class="portlet-header" ondblclick="EditHeader(this)" data-id={{task.id}}>
+                <span class="portlet-header-content"> {{task.title}} </span>
+            </div>
+            <div class="portlet-content" ondblclick="EditContent(this)">{{task.content}}</div>
+        </div>
+        {% endfor %}
+    </div>
+{% endfor %}

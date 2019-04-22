@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% load staticfiles %}
+{% block scripts %}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <script src="{% static 'js/drag-drop.js' %}"></script>
+{% endblock scripts %}
+
+{% block main_content %}
+  {% csrf_token %}
+  <div class="column-main">
+     {% include "first/tasks.html" %}
+
+     <div class="new-tag">
+        <span class='ui-icon ui-icon-plusthick' onclick="newTag(this)"></span>
+        {% include 'first/new_tag_form.html'%}
+    </div>
+  </div>
+  
+
+{% endblock main_content %}

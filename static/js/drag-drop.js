@@ -1,8 +1,10 @@
 $(document).ready(function(){
 $(onPageLoad);
+})    // End of document ready
+
 
 // Saves text in 'portlet-content' on pressing ENTER
-$(".portlet-content").keypress(function (e) {
+jQuery(document).on('keypress', '.portlet-content', function(e) {
   if (e.which == 13) {
     updated_content = e.currentTarget.innerText
     task_id = e.currentTarget.parentElement.id
@@ -12,7 +14,7 @@ $(".portlet-content").keypress(function (e) {
 });
 
 // Saves text in 'portlet-header' on pressing ENTER
-$(".portlet-header").keypress(function (e) {
+jQuery(document).on('keypress', '.portlet-header', function(e) {
   if (e.keyCode ==13 || e.which == 13) {
     updated_title = e.currentTarget.innerText
     task_id = e.currentTarget.parentElement.id
@@ -21,35 +23,15 @@ $(".portlet-header").keypress(function (e) {
   }
 });
 
-$(".close-btn").on("click",function(event){
 
+
+$(document).on("click",".close-btn",function(event){
   $(this).closest(".modal").hide()
 })
 
-$(".taskForm").on("submit",function(e){
-  e.preventDefault();
-  post_title = $(this).find("#taskTitle").val()
-  post_content = $(this).find("#taskContent").val()
-  post_user_id = $(this).find("#user").val()
-  post_status_id = $(this).find("#status").val()
-  post_token = $(this).find('input[name=csrfmiddlewaretoken]')[0].value
 
-  $.ajax({
-    type:"POST",
-    cache:false,
-    url:'/newtask',
-    dataType: "json",
-    data:{title:post_title,content:post_content,user_id:post_user_id,status_id:post_status_id,csrfmiddlewaretoken:post_token},    // multiple data sent using ajax
-    success: function (html) {
-      console.log("Success..!!")
-      $(this).closest(".modal").hide()
-      debugger
-    }
-    });
 
-})
-
-$(".tagForm").on("submit",function(e){
+$(document).on("submit",".tagForm",function(e){
   e.preventDefault();
   post_title = $(this).find("#tagTitle").val()
   post_token = $(this).find('input[name=csrfmiddlewaretoken]')[0].value
@@ -58,21 +40,49 @@ $(".tagForm").on("submit",function(e){
     type:"POST",
     cache:false,
     url:'/newtag',
-    dataType: "json",
+    dataType: 'html',
     data:{title:post_title,csrfmiddlewaretoken:post_token},    // multiple data sent using ajax
     success: function (html) {
-      console.log("Tag Created..")
-      alert("------------")
-    },
-    failure: function (html) {
-      console.log("Tag Creation Failed ..")
-      alert("------------")
+      console.log("Tag Created Successfully..!!")
+      $("#mytagmodal").hide()
+      $(".column-main").html(html)
+      $(onPageLoad);
     }
     });
+  }) // End of Tag Form
 
-})
 
-})
+$(document).on("submit",".taskForm", function(e){
+  e.preventDefault();
+  post_title = $(this).find("#taskTitle").val()
+  post_content = $(this).find("#taskContent").val()
+  post_user_id = $(this).find("#user").val()
+  post_status_id = $(this).find("#status").val()
+  post_token = $(this).find('input[name=csrfmiddlewaretoken]')[0].value
+  var that = this
+  let data = {
+    'title':post_title,
+    'content':post_content,
+    'user_id':post_user_id,
+    'status_id':post_status_id,
+    'csrfmiddlewaretoken':post_token,
+  }
+  $.ajax({
+    type : "POST",
+    url:'/newtask',
+    dataType: 'html',
+    data: data,    // multiple data sent using ajax
+    success: function (html) {
+        console.log("Task created Successfully..!!")
+        $(that).closest(".modal").hide()
+        $(".column-main").html(html)
+        $(onPageLoad);
+      }
+    });
+}) // End of Task Form
+
+
+
 
 // To enable content editing
 function EditContent(ref_element){
@@ -93,10 +103,11 @@ function onTaskChange(task_status_id,task_id,order){
     type:"POST",
     cache:false,
     url:'/update',
-    dataType: "json",
+    dataType: "html",
     data:{taskstatusid:task_status_id, taskid:task_id,taskorder:order,csrfmiddlewaretoken:token},    // multiple data sent using ajax
     success: function (html) {
-      debugger
+      $(".column-main").html(html)
+      $(onPageLoad);
     }
     });
   }
@@ -104,14 +115,21 @@ function onTaskChange(task_status_id,task_id,order){
 // Call this function to change content or title of task
 function onContentChange(task_id,updated_content,title){
   var token = jQuery("[name=csrfmiddlewaretoken]").val();
+  var title_id = "#title-"+ task_id.toString()
+  var content_id = "#content-" + task_id.toString()
   $.ajax({
     type:"POST",
     cache:false,
     url:'/updatecontent',
     dataType: "json",
     data:{taskid:task_id,updatedcontent:updated_content,is_title:title,csrfmiddlewaretoken:token},    // multiple data sent using ajax
-    success: function (html) {
-      debugger
+    success: function (data) {
+      if(title){
+        $(title_id).innerText = data
+      }
+      else {
+        $(content_id).innerText = data
+      }
     }
     });
   }

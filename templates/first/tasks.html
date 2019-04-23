@@ -6,11 +6,15 @@
         {% include 'first/new_task_form.html'%}
         {% for task in tasks %}
         <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
-            <div class="portlet-header" ondblclick="EditHeader(this)" data-id={{task.id}}>
-                <span class="portlet-header-content"> {{task.title}} </span>
+            <div class="portlet-header" id="title-{{task.id}}" ondblclick="EditHeader(this)" data-id={{task.id}}>
+                <span class="portlet-header-content" id="content-{{task.id}}"> {{task.title}} </span>
             </div>
             <div class="portlet-content" ondblclick="EditContent(this)">{{task.content}}</div>
         </div>
         {% endfor %}
     </div>
 {% endfor %}
+<div class="new-tag">
+    <span class='ui-icon ui-icon-plusthick' onclick="newTag(this)"></span>
+    {% include 'first/new_tag_form.html'%}
+</div>

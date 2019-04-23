@@ -6,7 +6,7 @@
                     <button type="button" class="close close-btn" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 
-                <form class="taskForm" id="task-form" method="post" action="/newtask">
+                <form class="taskForm" id="task-form" method="post" action=".">
                         {% csrf_token %}
                     <div class="modal-body">
                         <label for="taskTitle">Title: </label>

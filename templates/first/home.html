@@ -12,11 +12,6 @@
   {% csrf_token %}
   <div class="column-main">
      {% include "first/tasks.html" %}
-
-     <div class="new-tag">
-        <span class='ui-icon ui-icon-plusthick' onclick="newTag(this)"></span>
-        {% include 'first/new_tag_form.html'%}
-    </div>
   </div>
   
 

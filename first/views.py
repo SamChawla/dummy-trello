@@ -48,7 +48,7 @@ class UpdateTaskView(View):
             task = Task.objects.get(id=task_id)
             task.update_tag_id(task_status_id)
         data = updated_data()
-        return render(request, 'first/tasks.html', {'task': f"Task {task_id} Updated",'data':data})
+        return render(request, 'first/tasks.html', {'data':data})
 
 update_task = UpdateTaskView.as_view()
 
@@ -63,15 +63,13 @@ class UpdateContentView(View):
                 task = Task.objects.get(id=task_id)
                 task.title = updated_content.strip()
                 task.save()
-            data = updated_data()
-            return render(request, 'first/tasks.html', {'task': f"Task {task_id} Updated",'data':data})
+            return HttpResponse(json.dumps({'title':task.title}))
         else:
             if Task.objects.filter(id=task_id).exists():
                 task = Task.objects.get(id=task_id)
                 task.content = updated_content
                 task.save()
-            data = updated_data()
-            return render(request, 'first/tasks.html', {'task': f"Task {task_id} Updated",'data':data})
+            return HttpResponse(json.dumps({'content':task.content}))
 
 update_content = UpdateContentView.as_view()
 
@@ -87,8 +85,7 @@ class NewTaskView(View):
         data = {'title':task_title,'content':task_content,'author':task_user,'tag':task_status}
         task = Task.objects.create(**data)
         data = updated_data()
-        print(data)
-        return render(request, 'first/tasks.html', {'task': f"Task {task_title} Updated",'data':data})
+        return render(request, 'first/tasks.html', {'data':data})
 
 new_task = NewTaskView.as_view()
 
@@ -102,7 +99,6 @@ class NewTagForm(View):
         data = {'title':tag_title,'order_no':order}
         tag = TaskOptions.objects.create(**data)
         data = updated_data()
-        print(data)
-        return render(request, 'first/tasks.html', {'task': f"Task {tag_title} Updated",'data':data})
+        return render(request, 'first/tasks.html', {'data':data})
 
 new_tag=NewTagForm.as_view()

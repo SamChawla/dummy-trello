@@ -29,8 +29,6 @@ $(document).on("click",".close-btn",function(event){
   $(this).closest(".modal").hide()
 })
 
-
-
 $(document).on("submit",".tagForm",function(e){
   e.preventDefault();
   post_title = $(this).find("#tagTitle").val()
@@ -142,6 +140,9 @@ function onContentChange(task_id,updated_content,title){
     $("#mytagmodal").show()
   }
 
+  function deleteTask(ref_element){
+    $("#myDialogModal").show()
+  }
 
 // Called on Page Load
 function onPageLoad()

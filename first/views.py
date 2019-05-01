@@ -102,3 +102,14 @@ class NewTagForm(View):
         return render(request, 'first/tasks.html', {'data':data})
 
 new_tag=NewTagForm.as_view()
+
+class DeleteTask(View):
+
+    def get(self, request, *args, **kwargs):
+        task_id = kwargs['id']
+        task = Task.objects.get(id=task_id)
+        task.delete()
+        data = updated_data()
+        return render(request, 'first/tasks.html', {'data':data})
+
+delete_task=DeleteTask.as_view()

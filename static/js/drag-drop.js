@@ -2,7 +2,6 @@ $(document).ready(function(){
 $(onPageLoad);
 })    // End of document ready
 
-
 // Saves text in 'portlet-content' on pressing ENTER
 jQuery(document).on('keypress', '.portlet-content', function(e) {
   if (e.which == 13) {
@@ -22,8 +21,6 @@ jQuery(document).on('keypress', '.portlet-header', function(e) {
     $(e.currentTarget).removeAttr('contenteditable')
   }
 });
-
-
 
 $(document).on("click",".close-btn",function(event){
   $(this).closest(".modal").hide()
@@ -79,8 +76,21 @@ $(document).on("submit",".taskForm", function(e){
     });
 }) // End of Task Form
 
-
-
+$(document).on("click",".confirm-delete-btn", function(e){
+  task_id = parseInt($('input[name=delete-task]').val())
+  url = "/deletetask/" + task_id
+  $.ajax({
+    type : "GET",
+    url:url,
+    dataType: 'html',
+    success: function (html) {
+        console.log("Task Deleted Successfully..!!")
+        $("#confirm-delete").hide()
+        $(".column-main").html(html)
+        $(onPageLoad);
+      }
+    });
+})  // End of Delete Task
 
 // To enable content editing
 function EditContent(ref_element){
@@ -141,7 +151,10 @@ function onContentChange(task_id,updated_content,title){
   }
 
   function deleteTask(ref_element){
-    $("#myDialogModal").show()
+    $(".delete-task-title")[0].innerText = $(ref_element).data("title");
+    $('input[name=delete-task]').val($(ref_element).data("id"));
+    $("#confirm-delete").show()
+
   }
 
 // Called on Page Load

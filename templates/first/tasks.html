@@ -1,3 +1,6 @@
+<div class="delete-task" data-toggle="modal">
+    {% include 'first/confirm_delete_dialog.html'%}
+</div>
 {% for status,tasks in data.items %}
     <div class="column" data-task-id={{status.id}}>
         <div class="ui-widget-header ui-corner-all column-header">{{ status.title|upper }}
@@ -8,7 +11,7 @@
         <div class="portlet" id ="{{task.id}}" data-id="{{task.id}}">
             <div class="portlet-header" id="title-{{task.id}}" ondblclick="EditHeader(this)" data-id={{task.id}}>
                 <span class="portlet-header-content" id="content-{{task.id}}"> {{task.title}} </span>
-                <span class='ui-icon ui-icon-trash task-delete' onclick="deleteTask(this)" data-id={{task.id}}></span>
+                <span class='ui-icon ui-icon-trash task-delete' onclick="deleteTask(this)" data-id={{task.id}} data-title={{task.title}}></span>
             </div>
             <div class="portlet-content" ondblclick="EditContent(this)">{{task.content}}</div>
         </div>
@@ -18,7 +21,4 @@
 <div class="new-tag">
     <span class='ui-icon ui-icon-plusthick' onclick="newTag(this)"></span>
     {% include 'first/new_tag_form.html'%}
-</div>
-<div class="delete-task">
-    {% include 'first/confirm_delete_dialog.html'%}
 </div>

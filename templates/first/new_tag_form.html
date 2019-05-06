@@ -11,6 +11,7 @@
                     <div class="modal-body">
                         <label for="tagTitle">Tag: </label>
                         <input id="tagTitle" name="title" class="form-control" type="text"/>
+                        <input type="hidden" id="user" class="form-control" value="{{request.user.id}}"/>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default close-btn" data-dismiss="modal">Close</button>

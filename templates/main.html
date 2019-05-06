@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
     {% include "header.html" %} 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{message.tags}}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     {% block main_content %}{% endblock main_content%}
 {% endblock content%}

@@ -30,13 +30,14 @@ $(document).on("submit",".tagForm",function(e){
   e.preventDefault();
   post_title = $(this).find("#tagTitle").val()
   post_token = $(this).find('input[name=csrfmiddlewaretoken]')[0].value
+  post_user_id = $(this).find("#user").val()
 
   $.ajax({
     type:"POST",
     cache:false,
     url:'/newtag',
     dataType: 'html',
-    data:{title:post_title,csrfmiddlewaretoken:post_token},    // multiple data sent using ajax
+    data:{title:post_title,csrfmiddlewaretoken:post_token,user_id:post_user_id,},    // multiple data sent using ajax
     success: function (html) {
       console.log("Tag Created Successfully..!!")
       $("#mytagmodal").hide()
@@ -185,5 +186,4 @@ function onPageLoad()
     .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
     .find( ".portlet-header" )
       .addClass( "ui-widget-header ui-corner-all" );
-      // .prepend( "<span ondblclick='EditContent(this)' class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
 }

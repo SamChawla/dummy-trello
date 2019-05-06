@@ -1,15 +1,39 @@
 # users/admin.py
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from django.contrib.auth.admin import UserAdmin
+from django.utils.translation import gettext, gettext_lazy as _
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from users.forms import CustomUserCreationForm, CustomUserChangeForm
+from users.models import CustomUser
 
-from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+class CustomUserAdmin(BaseUserAdmin):
 
-class CustomUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
+    # The forms to add and change user instances
     form = CustomUserChangeForm
-    model = CustomUser
-    list_display = ['email', 'username',]
+    add_form = CustomUserCreationForm
 
+    add_form_template = 'admin/auth/user/add_form.html'
+    change_user_password_template = None
+    fieldsets = (
+        (None, {'fields': ('email', 'password')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name')}),
+        (_('Permissions'), {
+            'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions'),
+        }),
+        (_('Important dates'), {'fields': ('last_login',)}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2'),
+        }),
+    )
+
+    list_display = ('email', 'first_name', 'last_name', 'is_staff')
+    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+    search_fields = ('first_name', 'last_name', 'email')
+    ordering = ('email',)
+    filter_horizontal = ('groups', 'user_permissions',)
+
+# Re-register UserAdmin
 admin.site.register(CustomUser, CustomUserAdmin)
